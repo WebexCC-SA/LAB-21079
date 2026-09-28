@@ -1,0 +1,70 @@
+{
+    "event": {
+        "eventId": "{{id}}-{{alert.id}}",
+        "eventType": "THOUSANDEYES_ALERT_NOTIFICATION",
+        "id": "{{id}}",
+        "type": "{{type.id}}",
+        "accountId": "{{alert.rule.account.id}}",
+        "orgId": "{{alert.rule.account.organization.id}}",
+        {{#if alert.test}}
+        "testId": "{{alert.test.id}}",
+        "thousandeyes_test_id": "{{alert.test.id}}",
+        "test_description": "{{alert.test.description}}",
+        "test_type":"{{alert.test.testType}}",
+        "itsiDrilldownURI":"https://app.thousandeyes.com/network-app-synthetics/views/?testId={{alert.test.id}}",
+        {{/if}}
+        "severity_id": "{{#if (eq alert.severity.id 'INFO')}}1{{/if}}{{#if (eq alert.severity.id 'MINOR')}}3{{/if}}{{#if (eq alert.severity.id 'MAJOR')}}5{{/if}}{{#if (eq alert.severity.id 'CRITICAL')}}6{{/if}}",
+        "vendor_severity": "{{alert.severity.id}}",
+        "app": "THOUSANDEYES",
+        {{#if alert.targets.size}}
+        "src": "{{#each alert.targets}}{{#if @first}}{{description}}{{/if}}{{/each}}",
+        {{/if}}
+        "signature":"{{alert.rule.name}}",
+        "alert_type":"{{alert.rule.alertType.id}}",
+        "alert": {
+            "id": "{{alert.id}}",
+            "type": "{{alert.rule.alertType.id}}",
+            "severity": "{{alert.severity.id}}",
+            {{#if alert.test}}
+            "test": {
+                "name": "{{alert.test.name}}"
+            },
+            "targets": [
+                {{#each alert.targets}}
+                "{{description}}"{{#unless @last}}, {{/unless}}
+                {{/each}}
+            ],
+            {{/if}}
+            {{#with alert.rule as | rule |}}
+            "rule": {
+                "id": "{{rule.id}}",
+                "name": "{{rule.name}}",
+                "expression": "{{formatExpression rule.expression}}",
+                "notes": "{{rule.notes}}"
+            },
+            {{/with}}
+            "triggered": {{alert.firstSeen.epochMilli}},
+            {{#if alert.timeCleared}}
+            "cleared": {{alert.timeCleared.epochMilli}},
+            {{/if}}
+            "details": [
+                {{#each alert.details}}
+                    {
+                        "metricsAtStart" : "{{metricsAtStart}}",
+                        {{#if metricsAtEnd}}
+                        "metricsAtEnd" : "{{metricsAtEnd}}",
+                        {{/if}}
+                        "source" : {
+                            "id": "{{source.id}}",
+                            "name": "{{source.name}}"
+                            {{#if source.asn}}
+                            , "asn": "{{source.asn.name}}"
+                            {{/if}}
+                        }
+                    }
+                    {{#unless @last}}, {{/unless}}
+                {{/each}}
+            ]
+        }
+    }
+}
