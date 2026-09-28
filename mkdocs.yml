@@ -1,8 +1,8 @@
 ---
-site_name: LABXXX-1234 My famous WebexOne Lab # This must begin with the session ID, e.g. LABXXX-1234 This is my Cisco Live Lab
-site_description: LABXXX-1234 My famous WebexOne Lab # must be same as "site_name"
-site_author: John Doe
-copyright: Copyright &copy; 2025 Cisco
+site_name: "LAB-21079: Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes: From Business KPIs to Incident Triage" # This must begin with the session ID, e.g. LABXXX-1234 This is my Cisco Live Lab
+site_description: "Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes: From Business KPIs to Incident Triage" # must be same as "site_name"
+site_author: Dhinakaran Arumugam
+copyright: Copyright &copy; 2026 Cisco
 theme:
   name: material
   features:
@@ -35,7 +35,7 @@ theme:
   favicon: template_assets/webex75.png
 extra:
   generator: false
-  repo: "https://github.com/kevsimps/wx1_26.git"
+  repo: "https://github.com/WebexCC-SA/LAB-21079.git"
   site_event: test
 extra_css:
   - stylesheets/extra.css
@@ -86,7 +86,7 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 nav:
   - Home: index.md
-  - Welcome: welcome.md
+  # - Welcome: welcome.md
   - Lab:
       - Overview: overview.md
       - Lab 1 - Getting Started: lab1_getting_started.md
