@@ -55,7 +55,7 @@ Router/Logger is the combined CCE node often called Rogger. Repeat below steps o
 
 ![](assets/docx-image-006.png)
 
-1. Search each component index. Set the time range to at least the last 15 minutes.
+3. Search each component index. Set the time range to at least the last 15 minutes.
 
 |  |  |
 | --- | --- |
@@ -82,13 +82,13 @@ Router/Logger is the combined CCE node often called Rogger. Repeat below steps o
 
 *Figure 2. Platform – UCCE Insights. Use CCE Log Collection for raw file logs and CCE Call Ladder for a CALLGUID-correlated flow.*
 
-1. Open CCE Log Collection. Set Component Type to CVP (or PG, Router, Logger, VVB as needed), then submit.
+3. Open CCE Log Collection. Set Component Type to CVP (or PG, Router, Logger, VVB as needed), then submit.
 
 ![](assets/docx-image-010.png)
 
 *Figure 3. CCE Log Collection Dashboard — select the CCE component type (CVP shown) to load that component’s log view.*
 
-1. Open CCE Call Ladder from previous page [Click on Back to Landing Page].
+4. Open CCE Call Ladder from previous page [Click on Back to Landing Page].
 
 Enter a CALLGUID and click Submit to draw the cross-component sequence.
 
@@ -104,8 +104,8 @@ Look up the Splunk hostname from the session topology, set the HEC target on the
 
 Example: splunk.cb480.dc-01.com
 
-1. Login to CloudConnect Admin CLI by opening “CLOUDCONNECT” vm in mRemote from WKST1 desktop.
-2. Set the Splunk HEC target. Replace the token and hostname with the values from the worksheet:
+2. Login to CloudConnect Admin CLI by opening “CLOUDCONNECT” vm in mRemote from WKST1 desktop.
+3. Set the Splunk HEC target. Replace the token and hostname with the values from the worksheet:
 
 admin: <copy><i>utils splunk-data-sync splunk-hec set 422f7092-d67c-424b-847a-4e7542236964 &lt;SPLUNK\_FQDN from step1&gt; 8444 https</i></copy>
 
@@ -113,16 +113,33 @@ Example:
 
 admin: utils splunk-data-sync splunk-hec set 422f7092-d67c-424b-847a-4e7542236964 splunk.cb480.dc-01.com 8444 https
 
-1. Start the flow service to sync the data from AWDB/HDS to Splunk:
+Note: After running above CLI, make sure the Splunk HEC configurations are successfully added by running show command. <br>
+Eg: <br>
+<i>
+admin:utils splunk-data-sync splunk-hec show <br>
+Note: This may take up to a minute while NiFi is contacted; please wait. <br>
+  Connecting to NiFi.... done. <br>
+  Reading Splunk HEC configuration.......... done. <br>
+Current Splunk HEC configuration: <br>
+  Token: 422f7092-d67c-424b-847a-4e7542236964 <br>
+  Host: splunk.cb520.dc-05.com <br>
+  Port: 8444 <br>
+  Protocol: https <br>
+  HEC URL: https://splunk.cb520.dc-05.com:8444/services/collector <br>
+</i>
+
+Host, Port, Portocol and HEC URL should present like the above example, if not present, retry Step 3.
+
+4. Start the flow service to sync the data from AWDB/HDS to Splunk:
 
 <copy><i>utils splunk-data-sync flow start</i></copy>
 
-1. Sign in to Splunk and open Search & Reporting.
-2. Set the time range to Last 15 minutes and run:
+5. Sign in to Splunk and open Search & Reporting.
+6. Set the time range to Last 15 minutes and run:
 
 <copy><i>index="cce\_rt"</i></copy>
 
-1. Confirm events arrive. If the search is empty, wait one minute and rerun before troubleshooting.
+7. Confirm events arrive. If the search is empty, wait one minute and rerun before troubleshooting.
 
 |  |
 | --- |
@@ -154,8 +171,8 @@ Open the ThousandEyes URL on WKST1, then continue in the ThousandEyes portal to 
 
 *Figure 1. Lab workstation: C:\Scripts\TE-URL.txt. Open this file and use the URL on your laptop.*
 
-1. Open that URL from browser in WKST1.
-2. Then click on Go to account. ThousandEyes should open.
+2. Open that URL from browser in WKST1.
+3. Then click on Go to account. ThousandEyes should open.
 
 ![](assets/docx-image-013.png)
 
@@ -171,26 +188,26 @@ Open the ThousandEyes URL on WKST1, then continue in the ThousandEyes portal to 
 
 ![](assets/docx-image-014.png)
 
-1. Copy the run commands from Linux Package Tab on the opened page as follows,
+4. Copy the run commands from Linux Package Tab on the opened page as follows,
 
 ![](assets/docx-image-015.png)
 
-1. Open CLOUDCONNECT\_ROOT VM from mRemote on the WKST1. Execute the commands copied in
+5. Open CLOUDCONNECT\_ROOT VM from mRemote on the WKST1. Execute the commands copied in
 
 step 4.
 
-1. Keep the default log path /var/log.
-2. Wait for installation to complete.
+6. Keep the default log path /var/log.
+7. Wait for installation to complete.
 
 !!Do Not Reboot!!
 
-1. Check Agent registered in ThousandEyes and is Online.
+8. Check Agent registered in ThousandEyes and is Online.
 
 ![](assets/docx-image-018.png)
 
 ## 8. Create Network Synthetic Test.
 
-1.Log in to ThousandEyes.
+1. Log in to ThousandEyes.
 
 2. Click on Network and App Synthetics→ Test Settings→ Add New Test.
 
@@ -238,8 +255,8 @@ Example :
 
 ![](assets/docx-image-022.png)
 
-1. From the connector, click + New Operation.
-2. Configure the **operation** as follows, click Test, then Save.
+4. From the connector, click + New Operation.
+5. Configure the **operation** as follows, click Test, then Save.
 
 |  |  |
 | --- | --- |
@@ -260,11 +277,11 @@ b.
 
 ![](assets/docx-image-024.png)
 
-1. Save and click on Test to check Connectivity is successful.
+6. Save and click on Test to check Connectivity is successful.
 
 ![](assets/docx-image-025.png)
 
-1. Save the Operation
+7. Save the Operation
 
 ### 9.2 Create the alert webhook operation
 
@@ -364,13 +381,13 @@ Example:
 
 ![](assets/docx-image-027.png)
 
-1. Click on Save & Assign Connector.
-2. Assign already created connector and save:
+6. Click on Save & Assign Connector.
+7. Assign already created connector and save:
 
 ![](assets/docx-image-028.png)
 
-1. Click on the Operation and then Test.
-2. Then click on Save.
+8. Click on the Operation and then Test.
+9. Then click on Save.
 
 ### 9.3 Confirm both operations are connected state:
 
@@ -398,15 +415,15 @@ Use the **default alert rules** that ship with ThousandEyes. Assign the customer
 
 ![](assets/docx-image-031.png)
 
-1. Open Default HTTP Alert Rule. On Settings, select the customer HTTP Server test (lab example targets the CVP HTTP check). Save after you confirm the assignment.
+3. Open Default HTTP Alert Rule. On Settings, select the customer HTTP Server test (lab example targets the CVP HTTP check). Save after you confirm the assignment.
 
 ![](assets/docx-image-032.png)
 
-1. On the same HTTP rule, set Alert Detection Method to Manual Thresholds. Trigger when Error is present and Error Type is Any. Save Changes.
+4. On the same HTTP rule, set Alert Detection Method to Manual Thresholds. Trigger when Error is present and Error Type is Any. Save Changes.
 
 ![](assets/docx-image-033.png)
 
-1. Save Changes.
+5. Save Changes.
 
 ### 10.2 Modify default Network Alert Rule
 
@@ -414,11 +431,11 @@ Use the **default alert rules** that ship with ThousandEyes. Assign the customer
 
 ![](assets/docx-image-034.png)
 
-1. Set Manual Thresholds: Packet Loss ≥ 10% and Latency sensitivity High (or the customer’s thresholds). Save Changes.
+2. Set Manual Thresholds: Packet Loss ≥ 10% and Latency sensitivity High (or the customer’s thresholds). Save Changes.
 
 ![](assets/docx-image-035.png)
 
-1. Save Changes.
+3. Save Changes.
 
 **10.3 View the data and correlation in the custom Splunk Application:**
 
@@ -426,23 +443,23 @@ Use the **default alert rules** that ship with ThousandEyes. Assign the customer
 
 ![](assets/docx-image-036.png)
 
-1. Test Call Flow script is running to send calls. User should see the dashboard with call details.
-2. Bring down the VXML Server service from the CVP vm.
+2. Test Call Flow script is running to send calls. User should see the dashboard with call details.
+3. Bring down the VXML Server service from the CVP vm.
 
 Login to CVP VM from mRemote. Services→ Cisco CVP VXML Server → Stop Service.
 
-1. ThousandEyes Synthetic test will fail and will trigger the alert. Which will be sent back to Splunk.
+4. ThousandEyes Synthetic test will fail and will trigger the alert. Which will be sent back to Splunk.
 
 On the ThousandEyes login user will see alert as follows,  
 ![](assets/docx-image-037.png)
 
-1. On the Executive Dashboard user will see the alert [ThousandEyes Permalink] along with link to call logs and ladder diagram**. [PN : DB sync happens every 15 minutes. Correlation can be seen after the sync]**
+5. On the Executive Dashboard user will see the alert [ThousandEyes Permalink] along with link to call logs and ladder diagram**. [PN : DB sync happens every 15 minutes. Correlation can be seen after the sync]**
 
 ![](assets/docx-image-038.png)
 
 ![](assets/docx-image-039.png)
 
-1. Clicking on Analyze will show the logs with ladder diagram.
+6. Clicking on Analyze will show the logs with ladder diagram.
 
 ## 11. Install the Endpoint Agent
 
@@ -456,7 +473,7 @@ The following sections configure ThousandEyes Endpoint Experience for Cisco Fine
 
 ![](assets/docx-image-040.png)
 
-1. Return to Endpoint Experience → Agent Settings and confirm the hostname appears, the agent is Enabled, and it is checking in.
+6. Return to Endpoint Experience → Agent Settings and confirm the hostname appears, the agent is Enabled, and it is checking in.
 
 ![](assets/docx-image-041.png)
 
@@ -467,44 +484,44 @@ The following sections configure ThousandEyes Endpoint Experience for Cisco Fine
 
 ![](assets/docx-image-042.png)
 
-1. Choose Custom Application.
-2. Set the application name. Recommended: Finesse - Scheduled - Network.
-3. Under + Add Test, choose Scheduled – Network.
+3. Choose Custom Application.
+4. Set the application name. Recommended: Finesse - Scheduled - Network.
+5. Under + Add Test, choose Scheduled – Network.
 
 ![](assets/docx-image-043.png)
 
-1. Set the test target to the customer Finesse FQDN : <copy>finesse1.dcloud.cisco.com</copy>
-2. Change agent selection from All agents to Specific agents, then select the Endpoint Agents that should run the test.
+6. Set the test target to the customer Finesse FQDN : <copy>finesse1.dcloud.cisco.com</copy>
+7. Change agent selection from All agents to Specific agents, then select the Endpoint Agents that should run the test.
 
 ![](assets/docx-image-044.png)
 
-1. Click Review Template, then click on Next to Save test.
-2. Edit the test to update Finesse port and protocol and Save Test,  
+8. Click Review Template, then click on Next to Save test.
+9. Edit the test to update Finesse port and protocol and Save Test,  
    ![](assets/docx-image-045.png)
-3. Select the Finesse - Scheduled - Network - Scheduled – Network test and click on Run Once.
+10. Select the Finesse - Scheduled - Network - Scheduled – Network test and click on Run Once.
 
 ![](assets/docx-image-046.png)
 
-1. Check for path visualization:
+11. Check for path visualization:
 
 ![](assets/docx-image-047.png)
 
-1. Attach this test to Operations already created and save. Manage → Integrations 2.0 → Operations. Select Splunk\_TE\_Operation:   
+12. Attach this test to Operations already created and save. Manage → Integrations 2.0 → Operations. Select Splunk\_TE\_Operation:   
    ![](assets/docx-image-048.png)
-2. Simulate Network disconnect with finesse and Endpoint agent by adding invalid mapping in hosts file.  
+13. Simulate Network disconnect with finesse and Endpoint agent by adding invalid mapping in hosts file.  
    C:\Windows\System32\drivers\etc\hosts file. [Open as administrator]
 
 **<copy>10.68.10.10 finesse1.dcloud.cisco.com</copy>**
 
-1. Wait for few minutes for the test to run. Login to Splunk and click on **CCE Executive Overview** application.
+14. Wait for few minutes for the test to run. Login to Splunk and click on **CCE Executive Overview** application.
 
 You can see the Agent Experience state changed to 1 on the dashboard. Click on the card.
 
-1. User will see Agent Experience Score details and permalink to ThousandEyes.
+15. User will see Agent Experience Score details and permalink to ThousandEyes.
 
 ![](assets/docx-image-049.png)
 
-1. Click on the permalink to view the details in ThousandEyes.
+16. Click on the permalink to view the details in ThousandEyes.
 
 ![](assets/docx-image-050.png)
 
@@ -563,7 +580,7 @@ If this search returns no score fields, Splunk is receiving Agent-to-Server netw
 
 *Figure 1. Platform – UCCE Insights — CCE Infrastructure Monitoring shows host and process health from OpenTelemetry metrics.*
 
-1. Set Component to CVP and CVP Process as required, then Submit. Confirm CallServer and VXMLServer CPU and memory panels populate.
+2. Set Component to CVP and CVP Process as required, then Submit. Confirm CallServer and VXMLServer CPU and memory panels populate.
 
 ![](assets/docx-image-054.png)
 
@@ -577,13 +594,13 @@ If this search returns no score fields, Splunk is receiving Agent-to-Server netw
 
 *Figure 1. Alert Rules → Endpoint Experience. Default Endpoint HTTP Server and Default Endpoint Network (End-to-End Server) rules. Assign the Finesse scheduled tests here.*
 
-1. Open Default Endpoint Network Alert Rule. Set Agents (All agents or the specific Endpoint Agents), Tests (the Finesse scheduled network test), and Severity (Critical unless the customer specifies otherwise).
+2. Open Default Endpoint Network Alert Rule. Set Agents (All agents or the specific Endpoint Agents), Tests (the Finesse scheduled network test), and Severity (Critical unless the customer specifies otherwise).
 
 ![](assets/docx-image-056.jpg)
 
 *Figure 2. Default Endpoint Network Alert Rule — Settings: Scheduled Tests, Endpoint End-to-End, All agents, tests selected, Critical. Adaptive Alerting is available; the next step uses Manual Thresholds to match Error is present.*
 
-1. On Critical, choose Manual Thresholds. Require Error is present (at least 1 agent, 1 of 1 time in a row, or the customer’s window). Save Changes.
+3. On Critical, choose Manual Thresholds. Require Error is present (at least 1 agent, 1 of 1 time in a row, or the customer’s window). Save Changes.
 
 ![](assets/docx-image-057.jpg)
 
