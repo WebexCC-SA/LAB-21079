@@ -4,6 +4,7 @@
 
 ### 1.1 Prerequisites
 
+* dCloud session for this lab: [http://cs.co/9004BGqNZp](http://cs.co/9004BGqNZp). Open it to check your lab location (data center) and session details.
 * Access to the session Topology page so you can read the Splunk DNS A record.
 * Validate Splunk HEC reachability:
 
