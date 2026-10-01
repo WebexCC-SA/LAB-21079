@@ -1,0 +1,1664 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes: From Business KPIs to Incident Triage">
+      
+      
+        <meta name="author" content="Dhinakaran Arumugam">
+      
+      
+      
+        <link rel="prev" href="../topologies/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../template_assets/webex75.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Lab Guide - LAB-21079: Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes: From Business KPIs to Incident Triage</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lab-21079-contact-center-enterprise-cce-observability-with-splunk-and-thousandeyes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LAB-21079: Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes: From Business KPIs to Incident Triage" class="md-header__button md-logo" aria-label="LAB-21079: Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes: From Business KPIs to Incident Triage" data-md-component="logo">
+      
+  <img src="../template_assets/webexLogo91.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LAB-21079: Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes: From Business KPIs to Incident Triage
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lab Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../topologies/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Lab Topology and Deliverables
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Lab Guide
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LAB-21079: Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes: From Business KPIs to Incident Triage" class="md-nav__button md-logo" aria-label="LAB-21079: Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes: From Business KPIs to Incident Triage" data-md-component="logo">
+      
+  <img src="../template_assets/webexLogo91.png" alt="logo">
+
+    </a>
+    LAB-21079: Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes: From Business KPIs to Incident Triage
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topologies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Topology and Deliverables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#1-before-you-begin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Before you begin
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Before you begin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-values-you-must-collect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Values you must collect
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-cce-opentelemetry-collector-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. CCE OpenTelemetry Collector Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. CCE OpenTelemetry Collector Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-install-the-collector-on-cvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Install the collector on CVP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-start-the-collector-on-peripheral-gateway-and-routerlogger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Start the collector on Peripheral Gateway and Router/Logger
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-start-the-collector-on-vvb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Start the collector on VVB
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-verify-cce-logs-in-splunk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Verify CCE logs in Splunk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-view-logs-and-the-call-ladder-in-the-custom-splunk-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. View logs and the call ladder in the Custom Splunk app.
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-cce-reporting-data-to-splunk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. CCE Reporting data to Splunk
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-thousandeyes-integration-verify-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. ThousandEyes Integration - Verify Access:
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-install-the-enterprise-agent-in-cloudconnect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Install the Enterprise Agent in CloudConnect
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-create-network-synthetic-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Create Network Synthetic Test.
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-connect-thousandeyes-to-splunk-on-premise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Connect ThousandEyes to Splunk on Premise
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Connect ThousandEyes to Splunk on Premise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-create-the-splunk-enterprise-connector-and-assign-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Create the Splunk Enterprise Connector and Assign Operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-create-the-alert-webhook-operation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Create the alert webhook operation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-confirm-both-operations-are-connected-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Confirm both operations are connected state:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-configure-alert-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Configure alert rules.
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Configure alert rules.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-modify-default-http-alert-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Modify default HTTP Alert Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-modify-default-network-alert-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Modify default Network Alert Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-install-the-endpoint-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Install the Endpoint Agent
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-create-the-finesse-scheduled-network-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Create the Finesse scheduled network test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-verify-thousandeyes-data-in-splunk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Verify ThousandEyes data in Splunk
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Verify ThousandEyes data in Splunk">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-executive-dashboard-to-view-the-correlation-for-the-enterprise-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 Executive Dashboard to view the Correlation for the enterprise test:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-confirm-endpoint-agent-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 Confirm Endpoint Agent metrics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-confirm-thousandeyes-metric-events-are-present-in-splunk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 Confirm ThousandEyes metric events are present in Splunk
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-sending-cvp-metrics-using-opentelemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Sending CVP Metrics using OpenTelemetry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Sending CVP Metrics using OpenTelemetry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-start-otel-agent-for-metrics-collection-in-cvp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 Start OTel Agent for Metrics Collection in CVP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-view-metrics-in-the-cce-splunk-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 View metrics in the CCE Splunk app
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-endpoint-experience-alert-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Endpoint Experience alert rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="lab-21079-contact-center-enterprise-cce-observability-with-splunk-and-thousandeyes">LAB-21079: Contact Center Enterprise (CCE) Observability with Splunk and ThousandEyes</h1>
+<h2 id="1-before-you-begin">1. Before you begin</h2>
+<h3 id="11-prerequisites">1.1 Prerequisites</h3>
+<ul>
+<li>dCloud session for this lab: <a href="http://cs.co/9004BGqNZp">http://cs.co/9004BGqNZp</a>. Open it to check your lab location (data center) and session details.</li>
+<li>Access to the session Topology page so you can read the Splunk DNS A record.</li>
+<li>Validate Splunk HEC reachability:</li>
+</ul>
+<p><copy>curl -Iv https://&lt;splunk_fqdn&gt;:8444/services/collector/event</copy></p>
+<ul>
+<li>Call Flow Script is running to generate the calls.</li>
+</ul>
+<h3 id="12-values-you-must-collect">1.2 Values you must collect</h3>
+<p>Fill this worksheet with customer-specific values. Do not copy tokens or connection strings from the screenshots in this document.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Item</strong></td>
+<td><strong>Customer value</strong></td>
+</tr>
+<tr>
+<td><strong>Splunk FQDN (DNS A record)</strong></td>
+<td>Lab example: splunk.cb438.dc-01.com — look up Topology → Info → DNS</td>
+</tr>
+<tr>
+<td><strong>Splunk HEC port</strong></td>
+<td>8444</td>
+</tr>
+<tr>
+<td><strong>Splunk HEC URL</strong></td>
+<td><copy>https://&lt;splunk_fqdn&gt;:8444/services/collector/event</copy></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-cce-opentelemetry-collector-setup">2. CCE OpenTelemetry Collector Setup</h2>
+<p>This part streams Contact Center platform telemetry into Splunk. Complete it before ThousandEyes. Install the Splunk OpenTelemetry Collector on CVP and start it. OpenTelemetry Collector is preinstalled on solution components such as Peripheral Gateway and Router/Logger and VVB .</p>
+<h3 id="21-install-the-collector-on-cvp">2.1 Install the collector on CVP</h3>
+<ol type="1">
+<li>Sign in to the CVP Windows VM from mRemote on the WKST1 Desktop.</li>
+<li>Change directory to C:\webexone.</li>
+<li>Run the Splunk OpenTelemetry Collector MSI (<strong>splunk-otel-collector-0.158.0-amd64.msi</strong>).</li>
+<li>Copy <strong>cvp_logs.yaml</strong> and <strong>cvp_metrics.yaml</strong> files from <copy><strong>C:\webexone\OpenTelemetry Collector</strong></copy> to <copy><strong>C:\ProgramData\Splunk\OpenTelemetry Collector</strong></copy>.</li>
+<li>Open the cvp_logs.yaml. Configure HEC Endpoint and Logs to be pushed. [Commented for reference.]</li>
+<li>Open PowerShell, change to the Desktop and run <strong>start-otel-collector.ps1</strong> [ Check there are two files – make sure you are starting start-otel-collector.ps1]</li>
+</ol>
+<h3 id="22-start-the-collector-on-peripheral-gateway-and-routerlogger">2.2 Start the collector on Peripheral Gateway and Router/Logger</h3>
+<p>Router/Logger is the combined CCE node often called Rogger. Repeat below steps on each PG and Rogger VM that should send logs.</p>
+<ol type="1">
+<li>Sign in to the VM [PG, ROGGER] from mRemote on the WKST1 Desktop</li>
+<li>Open PowerShell and change directory to Desktop (or the folder that contains the start script).</li>
+<li>Run start-otel-collector.ps1</li>
+</ol>
+<h3 id="23-start-the-collector-on-vvb">2.3 Start the collector on VVB</h3>
+<ol type="1">
+<li>Sign in to the VVB_ROOT VM from mRemote on the WKST1 Desktop.</li>
+<li>From the /root execute <copy>./start-otel.sh</copy></li>
+</ol>
+<h2 id="3-verify-cce-logs-in-splunk">3. Verify CCE logs in Splunk</h2>
+<ol type="1">
+<li>Login to Splunk UI: Open the browser. Click on Demo Links → Splunk. [dclouduser/dcloud@123]</li>
+<li>Open Search &amp; Reporting application on the left panel.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-006.png" data-desc-position="top"><img alt="" src="../assets/docx-image-006.png"></a></p>
+<ol start="3" type="1">
+<li>Search each component index. Set the time range to at least the last 15 minutes.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td><strong>Value to use</strong></td>
+</tr>
+<tr>
+<td><strong>CVP logs</strong></td>
+<td><copy>index="cvp"</copy></td>
+</tr>
+<tr>
+<td><strong>Peripheral Gateway logs</strong></td>
+<td><copy>index="pg"</copy></td>
+</tr>
+<tr>
+<td><strong>Router / Logger logs</strong></td>
+<td><copy>index="router"</copy></td>
+</tr>
+<tr>
+<td><strong>VVB logs</strong></td>
+<td><copy>index="vvb"</copy></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example:</strong></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-007.png" data-desc-position="top"><img alt="" src="../assets/docx-image-007.png"></a></p>
+<h2 id="4-view-logs-and-the-call-ladder-in-the-custom-splunk-app">4. View logs and the call ladder in the Custom Splunk app.</h2>
+<ol type="1">
+<li>In Splunk, open the CCE Log Collection app (Enterprise Product Control Tower).</li>
+<li>Click Platform – UCCE Insights.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-008.png" data-desc-position="top"><img alt="" src="../assets/docx-image-008.png"></a></p>
+<p><em>Figure 1. Enterprise Product Control Tower — open Platform – UCCE Insights to reach log collection, call ladder, and infrastructure dashboards.</em></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-009.jpg" data-desc-position="top"><img alt="" src="../assets/docx-image-009.jpg"></a></p>
+<p><em>Figure 2. Platform – UCCE Insights. Use CCE Log Collection for raw file logs and CCE Call Ladder for a CALLGUID-correlated flow.</em></p>
+<ol start="3" type="1">
+<li>Open CCE Log Collection. Set Component Type to CVP (or PG, Router, Logger, VVB as needed), then submit.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-010.png" data-desc-position="top"><img alt="" src="../assets/docx-image-010.png"></a></p>
+<p><em>Figure 3. CCE Log Collection Dashboard — select the CCE component type (CVP shown) to load that component’s log view.</em></p>
+<ol start="4" type="1">
+<li>Open CCE Call Ladder from previous page [Click on Back to Landing Page].</li>
+</ol>
+<p>Enter a CALLGUID and click Submit to draw the cross-component sequence.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-011.png" data-desc-position="top"><img alt="" src="../assets/docx-image-011.png"></a></p>
+<p><em>Figure 4. CCE Call Ladder — correlated by CALLGUID. The ladder is empty until you submit a call identifier.</em></p>
+<h2 id="5-cce-reporting-data-to-splunk">5. CCE Reporting data to Splunk</h2>
+<p>Look up the Splunk hostname from the session topology, set the HEC target on the CloudConnect VOS CLI.</p>
+<ol type="1">
+<li>Open Topology → Info → DNS and find the A record for Splunk.</li>
+</ol>
+<p>Example: splunk.cb480.dc-01.com</p>
+<ol start="2" type="1">
+<li>Login to CloudConnect Admin CLI by opening “CLOUDCONNECT” vm in mRemote from WKST1 desktop.</li>
+<li>Set the Splunk HEC target. Replace the token and hostname with the values from the worksheet:</li>
+</ol>
+<p>admin: <copy><i>utils splunk-data-sync splunk-hec set 422f7092-d67c-424b-847a-4e7542236964 &lt;SPLUNK_FQDN from step1&gt; 8444 https</i></copy></p>
+<p>Example:</p>
+<p>admin: utils splunk-data-sync splunk-hec set 422f7092-d67c-424b-847a-4e7542236964 splunk.cb480.dc-01.com 8444 https</p>
+<p>Note: After running above CLI, make sure the Splunk HEC configurations are successfully added by running show command. <br>
+Eg: <br>
+<i>
+admin:utils splunk-data-sync splunk-hec show <br>
+Note: This may take up to a minute while NiFi is contacted; please wait. <br>
+  Connecting to NiFi.... done. <br>
+  Reading Splunk HEC configuration.......... done. <br>
+Current Splunk HEC configuration: <br>
+  Token: 422f7092-d67c-424b-847a-4e7542236964 <br>
+  Host: splunk.cb520.dc-05.com <br>
+  Port: 8444 <br>
+  Protocol: https <br>
+  HEC URL: https://splunk.cb520.dc-05.com:8444/services/collector <br>
+</i></p>
+<p>Host, Port, Portocol and HEC URL should present like the above example, if not present, retry Step 3.</p>
+<ol start="4" type="1">
+<li>Start the flow service to sync the data from AWDB/HDS to Splunk:</li>
+</ol>
+<p><copy><i>utils splunk-data-sync flow start</i></copy></p>
+<ol start="5" type="1">
+<li>Sign in to Splunk and open Search &amp; Reporting.</li>
+<li>Set the time range to Last 15 minutes and run:</li>
+</ol>
+<p><copy><i>index="cce_rt"</i></copy></p>
+<ol start="7" type="1">
+<li>Confirm events arrive. If the search is empty, wait one minute and rerun before troubleshooting.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Note.</strong> Do not continue to ThousandEyes until index=cce_rt returns events for the last 5 minutes.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Symptom</strong></td>
+<td><strong>What to check</strong></td>
+</tr>
+<tr>
+<td><strong>f there is an issue with the Splunk connection from Cloudconnect CLI</strong>  <strong>(For the step 3)</strong></td>
+<td>Login to CloudConnect ROOT box. Stop start nifi container.  podman stop nifi  podman start nifi</td>
+</tr>
+<tr>
+<td><strong>set command fails</strong></td>
+<td>FQDN matches the Topology DNS A record; port 8444; protocol https; HEC token is valid for this Splunk instance.</td>
+</tr>
+<tr>
+<td><strong>flow start fails</strong></td>
+<td>The set command succeeded first; the CLI user is a VOS administrator; retry after correcting HEC settings.</td>
+</tr>
+<tr>
+<td><strong>index="cce_rt" is empty</strong></td>
+<td>Time range is Last 5 minutes; index cce_rt exists; HEC is reachable from the CCE node; generate CCE activity and wait one minute.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>5.1 Validate data is populated by executing following query.</strong></p>
+<p><copy>
+index=cce_config sourcetype=cce:config:call_type <br>
+| stats latest(EnterpriseName) as EnterpriseName latest(CallType) as CallType by CallTypeID <br>
+| outputlookup cce_call_type_lookup.csv
+</copy></p>
+<h2 id="6-thousandeyes-integration-verify-access">6. ThousandEyes Integration - Verify Access:</h2>
+<p>Open the ThousandEyes URL on WKST1, then continue in the ThousandEyes portal to install the Endpoint Agent.</p>
+<ol type="1">
+<li>On the workstation WKST1, open C:\Scripts\TE-URL.txt and copy the URL.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-012.jpg" data-desc-position="top"><img alt="" src="../assets/docx-image-012.jpg"></a></p>
+<p><em>Figure 1. Lab workstation: C:\Scripts\TE-URL.txt. Open this file and use the URL on your laptop.</em></p>
+<ol start="2" type="1">
+<li>Open that URL from browser in WKST1.</li>
+<li>Then click on Go to account. ThousandEyes should open.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-013.png" data-desc-position="top"><img alt="" src="../assets/docx-image-013.png"></a></p>
+<p><em>Figure 2. Click Go to account. Email and user ID are redacted — use the account shown in your own lab portal.</em></p>
+<h2 id="7-install-the-enterprise-agent-in-cloudconnect">7. Install the Enterprise Agent in CloudConnect</h2>
+<ol type="1">
+<li>
+<p>Login to ThousandEyes.</p>
+</li>
+<li>
+<p>On the left navigation pane click on Network &amp; App Synthetics → Agent Settings.</p>
+</li>
+<li>
+<p>Click on Add Agent.</p>
+</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-014.png" data-desc-position="top"><img alt="" src="../assets/docx-image-014.png"></a></p>
+<ol start="4" type="1">
+<li>Copy the run commands from Linux Package Tab on the opened page as follows,</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-015.png" data-desc-position="top"><img alt="" src="../assets/docx-image-015.png"></a></p>
+<ol start="5" type="1">
+<li>Open CLOUDCONNECT_ROOT VM from mRemote on the WKST1. Execute the commands copied in</li>
+</ol>
+<p>step 4.</p>
+<ol start="6" type="1">
+<li>Keep the default log path /var/log.</li>
+<li>Wait for installation to complete.</li>
+</ol>
+<p>!!Do Not Reboot!!</p>
+<ol start="8" type="1">
+<li>Check Agent registered in ThousandEyes and is Online.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-018.png" data-desc-position="top"><img alt="" src="../assets/docx-image-018.png"></a></p>
+<h2 id="8-create-network-synthetic-test">8. Create Network Synthetic Test.</h2>
+<ol type="1">
+<li>
+<p>Log in to ThousandEyes.</p>
+</li>
+<li>
+<p>Click on Network and App Synthetics→ Test Settings→ Add New Test.</p>
+</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-019.png" data-desc-position="top"><img alt="" src="../assets/docx-image-019.png"></a></p>
+<ol start="3" type="1">
+<li>
+<p>Click on HTTP Server</p>
+</li>
+<li>
+<p>Fill the following in opened page.</p>
+</li>
+</ol>
+<p>URL : <copy><a href="http://198.18.133.13:7000/CVP/Server">http://198.18.133.13:7000/CVP/Server</a></copy></p>
+<p>Test Name: <copy>CVP-VXML_Server_Test</copy></p>
+<p>Select Agent already created.</p>
+<p>Example:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-020.png" data-desc-position="top"><img alt="" src="../assets/docx-image-020.png"></a></p>
+<ol start="5" type="1">
+<li>
+<p>Click on Deploy.</p>
+</li>
+<li>
+<p>Check the test results in Network &amp; App Synthetics → Views.  </p>
+</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-021.png" data-desc-position="top"><img alt="" src="../assets/docx-image-021.png"></a></p>
+<h2 id="9-connect-thousandeyes-to-splunk-on-premise">9. Connect ThousandEyes to Splunk on Premise</h2>
+<p>Use Integrations 2.0. Create one Generic Connector to the Splunk HEC endpoint, then two operations on that connector: a native Splunk metrics stream, and a custom webhook for alerts.</p>
+<h3 id="91-create-the-splunk-enterprise-connector-and-assign-operation">9.1 Create the Splunk Enterprise Connector and Assign Operation</h3>
+<ol type="1">
+<li>Go to Manage on left navigation pane → Integrations → Integrations 2.0 → Connectors.</li>
+<li>Click + New Connector → Splunk Enterprise HEC</li>
+<li>Complete the connector using the table below, then save and assign operations.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td><strong>Value to use</strong></td>
+</tr>
+<tr>
+<td><strong>Name</strong></td>
+<td><copy>Splunk_TE_Connector</copy></td>
+</tr>
+<tr>
+<td><strong>Target</strong></td>
+<td><copy>https://&lt;SPLUNK_FQDN&gt;:8444/services/collector/event</copy></td>
+</tr>
+<tr>
+<td><strong>Auth type</strong></td>
+<td>Other Token</td>
+</tr>
+<tr>
+<td><strong>Token</strong></td>
+<td><copy>60fb7921-0f4a-48b0-9c27-a2fdd1176cdd</copy></td>
+</tr>
+</tbody>
+</table>
+<p>Example :</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-022.png" data-desc-position="top"><img alt="" src="../assets/docx-image-022.png"></a></p>
+<ol start="4" type="1">
+<li>From the connector, click + New Operation.</li>
+<li>Configure the <strong>operation</strong> as follows, click Test, then Save.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td><strong>Value to use</strong></td>
+</tr>
+<tr>
+<td><strong>Operation name</strong></td>
+<td><copy>Splunk_TE_Operation</copy></td>
+</tr>
+<tr>
+<td><strong>Index</strong></td>
+<td><copy>te</copy> (or the customer index)</td>
+</tr>
+<tr>
+<td><strong>Source</strong></td>
+<td><copy>cisco:thousandeyes:stream</copy></td>
+</tr>
+<tr>
+<td><strong>Source type</strong></td>
+<td><copy>cisco:thousandeyes:metric</copy></td>
+</tr>
+<tr>
+<td><strong>OpenTelemetry signal</strong></td>
+<td>Metrics</td>
+</tr>
+<tr>
+<td><strong>Enable</strong></td>
+<td>On</td>
+</tr>
+<tr>
+<td><strong>Network &amp; App Synthetics tests</strong></td>
+<td>Select the HTTP / cloud tests that should land in Splunk</td>
+</tr>
+</tbody>
+</table>
+<p>Example: a.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-023.png" data-desc-position="top"><img alt="" src="../assets/docx-image-023.png"></a></p>
+<p>b.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-024.png" data-desc-position="top"><img alt="" src="../assets/docx-image-024.png"></a></p>
+<ol start="6" type="1">
+<li>Save and click on Test to check Connectivity is successful.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-025.png" data-desc-position="top"><img alt="" src="../assets/docx-image-025.png"></a></p>
+<ol start="7" type="1">
+<li>Save the Operation</li>
+</ol>
+<h3 id="92-create-the-alert-webhook-operation">9.2 Create the alert webhook operation</h3>
+<ol type="1">
+<li>Go to Manage on left navigation pane → Integrations → Integrations 2.0 → Operations</li>
+<li>Click + New Operation → Custom Webhook.</li>
+<li>Name the operation Splunk_TE_Webhook (or the customer naming standard).</li>
+<li>Set Path to <strong>/services/collector/event</strong> so alerts use the same HEC collector as metrics.</li>
+<li>Add the headers in the table, paste a Splunk HEC JSON body, click Test, then Save.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setting</strong></td>
+<td><strong>Value to use</strong></td>
+</tr>
+<tr>
+<td><strong>Operation name</strong></td>
+<td><copy>Splunk_TE_Webhook</copy></td>
+</tr>
+<tr>
+<td><strong>Path</strong></td>
+<td><copy>/services/collector/event</copy></td>
+</tr>
+<tr>
+<td><strong>Authorization</strong></td>
+<td><copy>Splunk 60fb7921-0f4a-48b0-9c27-a2fdd1176cdd</copy></td>
+</tr>
+<tr>
+<td><strong>Content-Type</strong></td>
+<td><copy>application/json</copy></td>
+</tr>
+<tr>
+<td><strong>Body</strong></td>
+<td>Copy the content of <a href="../assets/payload_body.txt" download="payload_body.txt">payload_body.txt</a> into the body section</td>
+</tr>
+</tbody>
+</table>
+<details class="note">
+<summary>payload_body.txt (click to expand and copy)</summary>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{id}}-{{alert.id}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"THOUSANDEYES_ALERT_NOTIFICATION"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{id}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{type.id}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{alert.rule.account.id}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"orgId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{alert.rule.account.organization.id}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{{</span><span class="err">#i</span><span class="kc">f</span><span class="w"> </span><span class="err">aler</span><span class="kc">t</span><span class="err">.</span><span class="kc">test</span><span class="p">}}</span>
+<span class="w">        </span><span class="nt">"testId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{alert.test.id}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"thousandeyes_test_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{alert.test.id}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"test_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{alert.test.description}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"test_type"</span><span class="p">:</span><span class="s2">"{{alert.test.testType}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"itsiDrilldownURI"</span><span class="p">:</span><span class="s2">"https://app.thousandeyes.com/network-app-synthetics/views/?testId={{alert.test.id}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{{</span><span class="err">/i</span><span class="kc">f</span><span class="p">}}</span>
+<span class="w">        </span><span class="nt">"severity_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{#if (eq alert.severity.id 'INFO')}}1{{/if}}{{#if (eq alert.severity.id 'MINOR')}}3{{/if}}{{#if (eq alert.severity.id 'MAJOR')}}5{{/if}}{{#if (eq alert.severity.id 'CRITICAL')}}6{{/if}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"vendor_severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{alert.severity.id}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"THOUSANDEYES"</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{{</span><span class="err">#i</span><span class="kc">f</span><span class="w"> </span><span class="err">aler</span><span class="kc">t</span><span class="err">.</span><span class="kc">tar</span><span class="err">ge</span><span class="kc">ts</span><span class="err">.size</span><span class="p">}}</span>
+<span class="w">        </span><span class="nt">"src"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{#each alert.targets}}{{#if @first}}{{description}}{{/if}}{{/each}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{{</span><span class="err">/i</span><span class="kc">f</span><span class="p">}}</span>
+<span class="w">        </span><span class="nt">"signature"</span><span class="p">:</span><span class="s2">"{{alert.rule.name}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"alert_type"</span><span class="p">:</span><span class="s2">"{{alert.rule.alertType.id}}"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"alert"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{alert.id}}"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{alert.rule.alertType.id}}"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{alert.severity.id}}"</span><span class="p">,</span>
+<span class="w">            </span><span class="p">{{</span><span class="err">#i</span><span class="kc">f</span><span class="w"> </span><span class="err">aler</span><span class="kc">t</span><span class="err">.</span><span class="kc">test</span><span class="p">}}</span>
+<span class="w">            </span><span class="nt">"test"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{alert.test.name}}"</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">"targets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{{</span><span class="err">#each</span><span class="w"> </span><span class="err">aler</span><span class="kc">t</span><span class="err">.</span><span class="kc">tar</span><span class="err">ge</span><span class="kc">ts</span><span class="p">}}</span>
+<span class="w">                </span><span class="s2">"{{description}}"</span><span class="p">{{</span><span class="err">#u</span><span class="kc">nless</span><span class="w"> </span><span class="err">@las</span><span class="kc">t</span><span class="p">}},</span><span class="w"> </span><span class="p">{{</span><span class="err">/u</span><span class="kc">nless</span><span class="p">}}</span>
+<span class="w">                </span><span class="p">{{</span><span class="err">/each</span><span class="p">}}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="p">{{</span><span class="err">/i</span><span class="kc">f</span><span class="p">}}</span>
+<span class="w">            </span><span class="p">{{</span><span class="err">#wi</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">aler</span><span class="kc">t</span><span class="err">.rule</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">rule</span><span class="w"> </span><span class="err">|</span><span class="p">}}</span>
+<span class="w">            </span><span class="nt">"rule"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{rule.id}}"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{rule.name}}"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"expression"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{formatExpression rule.expression}}"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{rule.notes}}"</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="p">{{</span><span class="err">/wi</span><span class="kc">t</span><span class="err">h</span><span class="p">}}</span>
+<span class="w">            </span><span class="nt">"triggered"</span><span class="p">:</span><span class="w"> </span><span class="p">{{</span><span class="err">aler</span><span class="kc">t</span><span class="err">.</span><span class="kc">f</span><span class="err">irs</span><span class="kc">t</span><span class="err">See</span><span class="kc">n</span><span class="err">.epochMilli</span><span class="p">}},</span>
+<span class="w">            </span><span class="p">{{</span><span class="err">#i</span><span class="kc">f</span><span class="w"> </span><span class="err">aler</span><span class="kc">t</span><span class="err">.</span><span class="kc">t</span><span class="err">imeCleared</span><span class="p">}}</span>
+<span class="w">            </span><span class="nt">"cleared"</span><span class="p">:</span><span class="w"> </span><span class="p">{{</span><span class="err">aler</span><span class="kc">t</span><span class="err">.</span><span class="kc">t</span><span class="err">imeCleared.epochMilli</span><span class="p">}},</span>
+<span class="w">            </span><span class="p">{{</span><span class="err">/i</span><span class="kc">f</span><span class="p">}}</span>
+<span class="w">            </span><span class="nt">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="p">{{</span><span class="err">#each</span><span class="w"> </span><span class="err">aler</span><span class="kc">t</span><span class="err">.de</span><span class="kc">ta</span><span class="err">ils</span><span class="p">}}</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="nt">"metricsAtStart"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"{{metricsAtStart}}"</span><span class="p">,</span>
+<span class="w">                        </span><span class="p">{{</span><span class="err">#i</span><span class="kc">f</span><span class="w"> </span><span class="err">me</span><span class="kc">tr</span><span class="err">icsA</span><span class="kc">t</span><span class="err">E</span><span class="kc">n</span><span class="err">d</span><span class="p">}}</span>
+<span class="w">                        </span><span class="nt">"metricsAtEnd"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"{{metricsAtEnd}}"</span><span class="p">,</span>
+<span class="w">                        </span><span class="p">{{</span><span class="err">/i</span><span class="kc">f</span><span class="p">}}</span>
+<span class="w">                        </span><span class="nt">"source"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                            </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{source.id}}"</span><span class="p">,</span>
+<span class="w">                            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{source.name}}"</span>
+<span class="w">                            </span><span class="p">{{</span><span class="err">#i</span><span class="kc">f</span><span class="w"> </span><span class="err">source.as</span><span class="kc">n</span><span class="p">}}</span>
+<span class="w">                            </span><span class="p">,</span><span class="w"> </span><span class="nt">"asn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{{source.asn.name}}"</span>
+<span class="w">                            </span><span class="p">{{</span><span class="err">/i</span><span class="kc">f</span><span class="p">}}</span>
+<span class="w">                        </span><span class="p">}</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                    </span><span class="p">{{</span><span class="err">#u</span><span class="kc">nless</span><span class="w"> </span><span class="err">@las</span><span class="kc">t</span><span class="p">}},</span><span class="w"> </span><span class="p">{{</span><span class="err">/u</span><span class="kc">nless</span><span class="p">}}</span>
+<span class="w">                </span><span class="p">{{</span><span class="err">/each</span><span class="p">}}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p>Example:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-027.png" data-desc-position="top"><img alt="" src="../assets/docx-image-027.png"></a></p>
+<ol start="6" type="1">
+<li>Click on Save &amp; Assign Connector.</li>
+<li>Assign already created connector and save:</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-028.png" data-desc-position="top"><img alt="" src="../assets/docx-image-028.png"></a></p>
+<ol start="8" type="1">
+<li>Click on the Operation and then Test.</li>
+<li>Then click on Save.</li>
+</ol>
+<h3 id="93-confirm-both-operations-are-connected-state">9.3 Confirm both operations are connected state:</h3>
+<ol type="1">
+<li>On Integrations 2.0 → Operations you should see both operations Enabled and Connected on the same Splunk connector.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-029.png" data-desc-position="top"><img alt="" src="../assets/docx-image-029.png"></a></p>
+<ol start="2" type="1">
+<li>Check Splunk is receiving the data from ThousandEyes by executing following search query on Search &amp; Reporting.<br>
+<copy><strong>index=te sourcetype="cisco:thousandeyes:metric"</strong></copy></li>
+</ol>
+<p>Example :</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-030.png" data-desc-position="top"><img alt="" src="../assets/docx-image-030.png"></a></p>
+<h2 id="10-configure-alert-rules">10. Configure alert rules.</h2>
+<p>Use the <strong>default alert rules</strong> that ship with ThousandEyes. Assign the customer’s HTTP and Agent-to-Server tests under Network &amp; App Synthetics, then assign Endpoint tests under Endpoint Experience. [PN: Customer can create Custom Alert Rules also]</p>
+<p><strong>In ThousandEyes, go to Manage → Alerts → Alert Rules.</strong></p>
+<h3 id="101-modify-default-http-alert-rule">10.1 Modify default HTTP Alert Rule</h3>
+<ol type="1">
+<li>In ThousandEyes, go to Manage → Alerts → Alert Rules</li>
+<li>Open the Network &amp; App Synthetics tab. Confirm Default HTTP Alert Rule and Default Network Alert Rule (Agent to Server) are enabled.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-031.png" data-desc-position="top"><img alt="" src="../assets/docx-image-031.png"></a></p>
+<ol start="3" type="1">
+<li>Open Default HTTP Alert Rule. On Settings, select the customer HTTP Server test (lab example targets the CVP HTTP check). Save after you confirm the assignment.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-032.png" data-desc-position="top"><img alt="" src="../assets/docx-image-032.png"></a></p>
+<ol start="4" type="1">
+<li>On the same HTTP rule, set Alert Detection Method to Manual Thresholds. Trigger when Error is present and Error Type is Any. Save Changes.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-033.png" data-desc-position="top"><img alt="" src="../assets/docx-image-033.png"></a></p>
+<ol start="5" type="1">
+<li>Save Changes.</li>
+</ol>
+<h3 id="102-modify-default-network-alert-rule">10.2 Modify default Network Alert Rule</h3>
+<ol type="1">
+<li>Open Default Network Alert Rule (Agent to Server). Assign the Agent-to-Server / HTTP test that should raise network alerts.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-034.png" data-desc-position="top"><img alt="" src="../assets/docx-image-034.png"></a></p>
+<ol start="2" type="1">
+<li>Set Manual Thresholds: Packet Loss ≥ 10% and Latency sensitivity High (or the customer’s thresholds). Save Changes.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-035.png" data-desc-position="top"><img alt="" src="../assets/docx-image-035.png"></a></p>
+<ol start="3" type="1">
+<li>Save Changes.</li>
+</ol>
+<p><strong>10.3 View the data and correlation in the custom Splunk Application:</strong></p>
+<ol type="1">
+<li>Login to Splunk. Click on <strong>CCE Executive Overview</strong> application on the left side of the home page.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-036.png" data-desc-position="top"><img alt="" src="../assets/docx-image-036.png"></a></p>
+<ol start="2" type="1">
+<li>Test Call Flow script is running to send calls. User should see the dashboard with call details.</li>
+<li>Bring down the VXML Server service from the CVP vm.</li>
+</ol>
+<p>Login to CVP VM from mRemote. Services→ Cisco CVP VXML Server → Stop Service.</p>
+<ol start="4" type="1">
+<li>ThousandEyes Synthetic test will fail and will trigger the alert. Which will be sent back to Splunk.</li>
+</ol>
+<p>On the ThousandEyes login user will see alert as follows,<br>
+<a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-037.png" data-desc-position="top"><img alt="" src="../assets/docx-image-037.png"></a></p>
+<ol start="5" type="1">
+<li>On the Executive Dashboard user will see the alert [ThousandEyes Permalink] along with link to call logs and ladder diagram<strong>. [PN : DB sync happens every 15 minutes. Correlation can be seen after the sync]</strong></li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-038.png" data-desc-position="top"><img alt="" src="../assets/docx-image-038.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-039.png" data-desc-position="top"><img alt="" src="../assets/docx-image-039.png"></a></p>
+<ol start="6" type="1">
+<li>Clicking on Analyze will show the logs with ladder diagram.</li>
+</ol>
+<h2 id="11-install-the-endpoint-agent">11. Install the Endpoint Agent</h2>
+<p>The following sections configure ThousandEyes Endpoint Experience for Cisco Finesse Agent Desktop.</p>
+<ol type="1">
+<li>In ThousandEyes, go to Endpoint Experience → Agent Settings → Download.</li>
+<li>Select Endpoint Agent (full featured). Endpoint Agent Pulse is not used for this design.</li>
+<li>Choose Windows and x86 version for WKST1.</li>
+<li>Copy the connection string from this page. You will paste it during installation, so the agent registers into the correct ThousandEyes Organization.</li>
+<li>Install the package on the agent desktop and complete registration with that connection string.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-040.png" data-desc-position="top"><img alt="" src="../assets/docx-image-040.png"></a></p>
+<ol start="6" type="1">
+<li>Return to Endpoint Experience → Agent Settings and confirm the hostname appears, the agent is Enabled, and it is checking in.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-041.png" data-desc-position="top"><img alt="" src="../assets/docx-image-041.png"></a></p>
+<h2 id="12-create-the-finesse-scheduled-network-test">12. Create the Finesse scheduled network test</h2>
+<ol type="1">
+<li>Go to Endpoint Experience → Test Settings → Synthetic Tests.</li>
+<li>Click + Monitor Application.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-042.png" data-desc-position="top"><img alt="" src="../assets/docx-image-042.png"></a></p>
+<ol start="3" type="1">
+<li>Choose Custom Application.</li>
+<li>Set the application name. Recommended: Finesse - Scheduled - Network.</li>
+<li>Under + Add Test, choose Scheduled – Network.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-043.png" data-desc-position="top"><img alt="" src="../assets/docx-image-043.png"></a></p>
+<ol start="6" type="1">
+<li>Set the test target to the customer Finesse FQDN : <copy>finesse1.dcloud.cisco.com</copy></li>
+<li>Change agent selection from All agents to Specific agents, then select the Endpoint Agents that should run the test.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-044.png" data-desc-position="top"><img alt="" src="../assets/docx-image-044.png"></a></p>
+<ol start="8" type="1">
+<li>Click Review Template, then click on Next to Save test.</li>
+<li>Edit the test to update Finesse port and protocol and Save Test,<br>
+<a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-045.png" data-desc-position="top"><img alt="" src="../assets/docx-image-045.png"></a></li>
+<li>Select the Finesse - Scheduled - Network - Scheduled – Network test and click on Run Once.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-046.png" data-desc-position="top"><img alt="" src="../assets/docx-image-046.png"></a></p>
+<ol start="11" type="1">
+<li>Check for path visualization:</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-047.png" data-desc-position="top"><img alt="" src="../assets/docx-image-047.png"></a></p>
+<ol start="12" type="1">
+<li>Attach this test to Operations already created and save. Manage → Integrations 2.0 → Operations. Select Splunk_TE_Operation: <br>
+<a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-048.png" data-desc-position="top"><img alt="" src="../assets/docx-image-048.png"></a></li>
+<li>Simulate Network disconnect with finesse and Endpoint agent by adding invalid mapping in hosts file.<br>
+   C:\Windows\System32\drivers\etc\hosts file. [Open as administrator]</li>
+</ol>
+<p><strong><copy>10.68.10.10 finesse1.dcloud.cisco.com</copy></strong></p>
+<ol start="14" type="1">
+<li>Wait for few minutes for the test to run. Login to Splunk and click on <strong>CCE Executive Overview</strong> application.</li>
+</ol>
+<p>You can see the Agent Experience state changed to 1 on the dashboard. Click on the card.</p>
+<ol start="15" type="1">
+<li>User will see Agent Experience Score details and permalink to ThousandEyes.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-049.png" data-desc-position="top"><img alt="" src="../assets/docx-image-049.png"></a></p>
+<ol start="16" type="1">
+<li>Click on the permalink to view the details in ThousandEyes.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-050.png" data-desc-position="top"><img alt="" src="../assets/docx-image-050.png"></a></p>
+<h2 id="13-verify-thousandeyes-data-in-splunk">13. Verify ThousandEyes data in Splunk</h2>
+<p>Wait at least two test intervals (about two minutes at 1-minute frequency), then run these searches. Adjust index and time range to the customer environment.</p>
+<h3 id="131-executive-dashboard-to-view-the-correlation-for-the-enterprise-test">13.1 Executive Dashboard to view the Correlation for the enterprise test:</h3>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-051.png" data-desc-position="top"><img alt="" src="../assets/docx-image-051.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-052.png" data-desc-position="top"><img alt="" src="../assets/docx-image-052.png"></a></p>
+<h3 id="132-confirm-endpoint-agent-metrics">13.2 Confirm Endpoint Agent metrics</h3>
+<p><copy><i>
+index=* (sourcetype=cisco:thousandeyes:metric OR sourcetype=finesse:thousandeyes:real_user) <br>
+| eval te_agent=coalesce('thousandeyes.source.agent.name', computer_name, 'agent.name') <br>
+| eval te_port=tostring(coalesce(dest_port, server.port, "")) <br>
+| where isnotnull(te_agent) AND te_agent!="" AND (te_port="8445" OR sourcetype="finesse:thousandeyes:real_user") <br>
+| stats latest(_time) as last_seen, count as event_count, <br>
+max('metric_name:network.loss') as max_loss, <br>
+max('metric_name:network.latency') as max_latency, <br>
+max('metric_name:network.jitter') as max_jitter <br>
+by te_agent <br>
+| eval last_seen=strftime(last_seen,"%Y-%m-%d %H:%M:%S") <br>
+| sort - event_count <br>
+</i>
+</copy></p>
+<h3 id="133-confirm-thousandeyes-metric-events-are-present-in-splunk">13.3 Confirm ThousandEyes metric events are present in Splunk</h3>
+<p><copy><i>
+index=* (sourcetype=cisco:thousandeyes:metric OR sourcetype=finesse:thousandeyes:real_user) <br>
+| stats count as event_count, latest(_time) as last_seen, dc(coalesce('thousandeyes.source.agent.name', computer_name, 'agent.name')) as  distinct_agents <br>
+| eval last_seen=strftime(last_seen,"%Y-%m-%d %H:%M:%S") </i>
+</copy></p>
+<p>If this search returns no score fields, Splunk is receiving Agent-to-Server network gauges only. That is expected until Endpoint Experience tags and local-network streaming are enabled on the Splunk TE operation.</p>
+<h2 id="14-sending-cvp-metrics-using-opentelemetry">14. Sending CVP Metrics using OpenTelemetry</h2>
+<h3 id="141-start-otel-agent-for-metrics-collection-in-cvp">14.1 Start OTel Agent for Metrics Collection in CVP</h3>
+<ol type="1">
+<li>
+<p>Login to CVP VM from mRemote. Stop if other OTel process is running</p>
+</li>
+<li>
+<p>Open the PowerShel. Change directory to Desktop.</p>
+</li>
+<li>
+<p>Start the PowerShell script <strong>start-metrics-collector.ps1</strong></p>
+</li>
+</ol>
+<h3 id="142-view-metrics-in-the-cce-splunk-app">14.2 View metrics in the CCE Splunk app</h3>
+<ol type="1">
+<li>Open CCE Log Collection → Platform – UCCE Insights → CCE Infrastructure Monitoring.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-053.png" data-desc-position="top"><img alt="" src="../assets/docx-image-053.png"></a></p>
+<p><em>Figure 1. Platform – UCCE Insights — CCE Infrastructure Monitoring shows host and process health from OpenTelemetry metrics.</em></p>
+<ol start="2" type="1">
+<li>Set Component to CVP and CVP Process as required, then Submit. Confirm CallServer and VXMLServer CPU and memory panels populate.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-054.png" data-desc-position="top"><img alt="" src="../assets/docx-image-054.png"></a></p>
+<p><em>Figure 2. CCE Infrastructure Monitoring for CVP. Empty panels usually mean the metrics collector is not running or the time range does not cover recent samples.</em></p>
+<h2 id="15-endpoint-experience-alert-rules">15. Endpoint Experience alert rules</h2>
+<ol type="1">
+<li>Open Manage → Alerts → Alert Rules → Endpoint Experience. Confirm Default Endpoint HTTP and Default Endpoint Network rules are enabled.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-055.jpg" data-desc-position="top"><img alt="" src="../assets/docx-image-055.jpg"></a></p>
+<p><em>Figure 1. Alert Rules → Endpoint Experience. Default Endpoint HTTP Server and Default Endpoint Network (End-to-End Server) rules. Assign the Finesse scheduled tests here.</em></p>
+<ol start="2" type="1">
+<li>Open Default Endpoint Network Alert Rule. Set Agents (All agents or the specific Endpoint Agents), Tests (the Finesse scheduled network test), and Severity (Critical unless the customer specifies otherwise).</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-056.jpg" data-desc-position="top"><img alt="" src="../assets/docx-image-056.jpg"></a></p>
+<p><em>Figure 2. Default Endpoint Network Alert Rule — Settings: Scheduled Tests, Endpoint End-to-End, All agents, tests selected, Critical. Adaptive Alerting is available; the next step uses Manual Thresholds to match Error is present.</em></p>
+<ol start="3" type="1">
+<li>On Critical, choose Manual Thresholds. Require Error is present (at least 1 agent, 1 of 1 time in a row, or the customer’s window). Save Changes.</li>
+</ol>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/docx-image-057.jpg" data-desc-position="top"><img alt="" src="../assets/docx-image-057.jpg"></a></p>
+<p><em>Figure 3. Default Endpoint Network Alert Rule — Critical, Manual Thresholds, condition Error is present. Use this so Endpoint Agent path errors raise alerts.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../topologies/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lab Topology and Deliverables">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Lab Topology and Deliverables
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Cisco
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.instant", "navigation.top", "navigation.footer", "search.suggest", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../template_assets/js/newLoad.js"></script>
+      
+        <script src="../template_assets/js/setInfo.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "fade", "closeEffect": "fade", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
