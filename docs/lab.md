@@ -31,7 +31,7 @@ This part streams Contact Center platform telemetry into Splunk. Complete it bef
 1. Sign in to the CVP Windows VM from mRemote on the WKST1 Desktop.
 2. Change directory to C:\webexone.
 3. Run the Splunk OpenTelemetry Collector MSI (**splunk-otel-collector-0.158.0-amd64.msi**).
-4. Copy **cvp\_logs.yaml** and **cvp\_metrics.yaml** files from <copy>**C:\webexone</copy> to <copy>**C:\ProgramData\Splunk\OpenTelemetry Collector**</copy>.
+4. Copy **cvp\_logs.yaml** and **cvp\_metrics.yaml** files from <copy>**C:\webexone**</copy> to <copy>**C:\ProgramData\Splunk\OpenTelemetry Collector**</copy>.
 5. Open the cvp\_logs.yaml. Configure HEC Endpoint and Logs to be pushed. [Commented for reference.]
 6. Open PowerShell, change to the Desktop and run **start-otel-collector.ps1** [ Check there are two files – make sure you are starting start-otel-collector.ps1]
 
